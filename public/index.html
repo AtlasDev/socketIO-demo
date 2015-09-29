@@ -1,0 +1,80 @@
+<!doctype html>
+<html ng-app="socketApp">
+    <head>
+        <title>Socket.IO demo</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    </head>
+    <body ng-controller="mainController" class="ng-hide" ng-show="showPage">
+        <div id="sectionSelect" ng-show="admin">
+            <h2>Section selector</h2>
+            <input type="checkbox" ng-model="sectionUpdateValue['about']" ng-change="updateSection('about')">About</input>
+            <input type="checkbox" ng-model="sectionUpdateValue['chat']" ng-change="updateSection('chat')">Chat</input>
+        </div>
+        <div class="container">
+            <div class="page-header">
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{'header.language' | translate}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="" ng-click="changeLanguage('EN_us')">English</a></li>
+                        <li><a href="" ng-click="changeLanguage('NL_nl')">Nederlands</a></li>
+                    </ul>
+                </div>
+                <h1>{{'header.title' | translate}} <small ng-click="askAdmin()">{{'header.credits' | translate}} <a href="http://www.atlasdev.nl" target="_BLANK" title="AtlasDev">AtlasDev</a></small></h1>
+            </div>
+            <p><b>{{ 'header.hello' | translate:{name: name} }}</b></p>
+            <p>{{ 'header.description' | translate }}</p>
+            <div ng-controller="aboutController" id="aboutSection" ng-show="sections['about'] == true">
+                <div class="page-header">
+                    <h2>{{'what.title' | translate}}</h2>
+                </div>
+                <p>{{'what.description' | translate}}</p>
+                <div class="well">
+                    {{textContent}}
+                </div>
+                <div class="well" ng-show="admin">
+                    <textarea class="form-control" rows="2" ng-model="textField" placeholder="Some shared text" ng-change="updateText()"></textarea>
+                    <select name="singleSelect" ng-model="backgroundColor" ng-change="setBackground()">
+                        <option value="#FFFFFF">{{'what.color.white' | translate}}</option>
+                        <option value="#FF0000">{{'what.color.red' | translate}}</option>
+                        <option value="#00FF00">{{'what.color.green' | translate}}</option>
+                        <option value="#0000FF">{{'what.color.blue' | translate}}</option>
+                        <option value="#000000">{{'what.color.black' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div ng-controller="chatController" id="chatSection" ng-show="sections['chat'] == true">
+                <div class="page-header">
+                    <h2>{{'chat.title' | translate}}</h2>
+                </div>
+                <div id="chatBox" class="panel panel-primary">
+                    <div class="panel-heading">{{'chat.box' | translate}}</div>
+                    <p ng-repeat="message in chatMessages | orderBy: 'time'">
+                        <b ng-class="{ 'admin': message.admin }">{{message.user}}:</b> {{message.message}}
+                    </p>
+                </div>
+                <form ng-submit="sendMessage()">
+                    <div class="form-group">
+                        <label for="chatMessage" class="col-sm-2 control-label">{{'chat.message' | translate}}</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="chatMessage" ng-model="chatMessage" placeholder="{{'chat.message' | translate}}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.4.6/angular-cookies.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.8.0/angular-translate.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/translation.js"></script>
+        <script src="js/socket.min.js"></script>
+    </body>
+</html>

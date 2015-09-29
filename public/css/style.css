@@ -1,0 +1,18 @@
+#sectionSelect {
+     position:fixed;
+     bottom:0;
+     right:0;
+     margin: 20px;
+     padding: 10px 20px;
+     background-color: rgb(103, 103, 103);
+     color: #fff;
+}
+
+#chatBox {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.admin {
+    color: rgb(185, 34, 34);
+}
