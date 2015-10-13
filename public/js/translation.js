@@ -3,6 +3,9 @@ app.config(function($translateProvider) {
     $translateProvider.preferredLanguage('EN_us');
     $translateProvider.usePostCompiling(true);
     $translateProvider.translations('EN_us', {
+        common: {
+            online: 'Online users:'
+        },
         header: {
             title: 'Socket.IO demo',
             credits: 'Created by',
@@ -10,8 +13,8 @@ app.config(function($translateProvider) {
             hello: 'Welcome {{name}}!',
             description: 'What you will see in a few moments is a demo of the most cutting-edge technology from the web development department. This technology is used in chat applications like Facebook Chat, live stream services like WatchBeam or even in your mailservice Gmail. The presentation will start in a few moments, so sit back and relax till everyone has joined the website.'
         },
-        what: {
-            title: 'What does Socket.IO?',
+        example: {
+            title: 'examples with Socket.IO.',
             description: 'Some small example of the posiblilties of Socket.IO.',
             color: {
                 white: 'White',
@@ -25,6 +28,9 @@ app.config(function($translateProvider) {
             title: 'More examples',
             box: 'Chat box',
             message: 'Message'
+        },
+        what: {
+            title: 'How does Socket.IO work?'
         }
     })
     .translations('NL_nl', {

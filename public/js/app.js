@@ -8,8 +8,9 @@ app.factory('socket', function (socketFactory) {
 
 app.controller('mainController', function($scope, $window, socket, $translate, $cookies, $anchorScroll) {
     $scope.sections = {
-        about: false,
-        chat: false
+        example: false,
+        chat: false,
+        what: false
     }
     $scope.admin = false;
     $scope.users = [];
@@ -90,23 +91,23 @@ app.controller('mainController', function($scope, $window, socket, $translate, $
     }
 });
 
-app.controller('aboutController', function($scope, socket) {
-    socket.on('about:text', function (text) {
-        console.debug('(About) text changed to '+text);
+app.controller('exampleController', function($scope, socket) {
+    socket.on('example:text', function (text) {
+        console.debug('(example) text changed to '+text);
         $scope.textContent = text;
     });
 
-    socket.on('about:background', function (color) {
-        console.debug('(About) Background set to: '+color);
+    socket.on('example:background', function (color) {
+        console.debug('(example) Background set to: '+color);
         $("body").css('background-color', color);
     })
 
     $scope.updateText = function () {
-        socket.emit('about:text', $scope.textField);
+        socket.emit('example:text', $scope.textField);
     }
 
     $scope.setBackground = function () {
-        socket.emit('about:background', $scope.backgroundColor);
+        socket.emit('example:background', $scope.backgroundColor);
     }
 });
 
@@ -116,6 +117,8 @@ app.controller('chatController', function($scope, socket) {
     socket.on('chat:message', function (data) {
         console.debug('(Chat) Chat message received: '+data.message);
         $scope.chatMessages.push(data);
+        var element = document.getElementById("chatBox");
+        element.scrollTop = element.scrollHeight;
     });
 
     $scope.sendMessage = function () {
@@ -123,5 +126,10 @@ app.controller('chatController', function($scope, socket) {
             return;
         }
         socket.emit('chat:send', $scope.chatMessage);
+        $scope.chatMessage = "";
     }
+});
+
+app.controller('whatController', function($scope) {
+
 });

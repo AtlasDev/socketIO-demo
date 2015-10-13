@@ -6,11 +6,21 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.4.6/angular-cookies.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.8.0/angular-translate.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/translation.js"></script>
+        <script src="js/socket.min.js"></script>
     </head>
     <body ng-controller="mainController" class="ng-hide" ng-show="showPage">
         <div id="sectionSelect" ng-show="admin">
             <h2>Section selector</h2>
-            <input type="checkbox" ng-model="sectionUpdateValue['about']" ng-change="updateSection('about')">About</input>
+            <input type="checkbox" ng-model="sectionUpdateValue['what']" ng-change="updateSection('what')">What</input>
+            <input type="checkbox" ng-model="sectionUpdateValue['example']" ng-change="updateSection('example')">Example</input>
             <input type="checkbox" ng-model="sectionUpdateValue['chat']" ng-change="updateSection('chat')">Chat</input>
         </div>
         <div class="container">
@@ -28,22 +38,28 @@
             </div>
             <p><b>{{ 'header.hello' | translate:{name: name} }}</b></p>
             <p>{{ 'header.description' | translate }}</p>
-            <div ng-controller="aboutController" id="aboutSection" ng-show="sections['about'] == true">
+            <div ng-controller="whatController" id="whatSection" ng-show="sections['what'] == true">
                 <div class="page-header">
                     <h2>{{'what.title' | translate}}</h2>
                 </div>
-                <p>{{'what.description' | translate}}</p>
+                <img src="https://lh5.googleusercontent.com/unfpPe6OC4zzXxe89VXn0Sbmp5uQBifvTx6illIno-OofyFXm-PmMYXe5gGaokGLcu7VCJjB_koRspcneTHfjuMct9yhk_YiwX4XaLCY6O13vKzHGsQ0A8RkB_oYhzmrzFM"></img>
+            </div>
+            <div ng-controller="exampleController" id="exampleSection" ng-show="sections['example'] == true">
+                <div class="page-header">
+                    <h2>{{'example.title' | translate}}</h2>
+                </div>
+                <p>{{'example.description' | translate}}</p>
                 <div class="well">
                     {{textContent}}
                 </div>
                 <div class="well" ng-show="admin">
                     <textarea class="form-control" rows="2" ng-model="textField" placeholder="Some shared text" ng-change="updateText()"></textarea>
                     <select name="singleSelect" ng-model="backgroundColor" ng-change="setBackground()">
-                        <option value="#FFFFFF">{{'what.color.white' | translate}}</option>
-                        <option value="#FF0000">{{'what.color.red' | translate}}</option>
-                        <option value="#00FF00">{{'what.color.green' | translate}}</option>
-                        <option value="#0000FF">{{'what.color.blue' | translate}}</option>
-                        <option value="#000000">{{'what.color.black' | translate}}</option>
+                        <option value="#FFFFFF">{{'example.color.white' | translate}}</option>
+                        <option value="#FF0000">{{'example.color.red' | translate}}</option>
+                        <option value="#00FF00">{{'example.color.green' | translate}}</option>
+                        <option value="#0000FF">{{'example.color.blue' | translate}}</option>
+                        <option value="#000000">{{'example.color.black' | translate}}</option>
                     </select>
                 </div>
             </div>
@@ -66,15 +82,7 @@
                     </div>
                 </form>
             </div>
+            <span><span>{{'common.online' | translate}}</span> {{users}}</span>
         </div>
-        <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-        <script src="https://code.angularjs.org/1.4.6/angular-cookies.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.8.0/angular-translate.min.js"></script>
-        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="js/app.js"></script>
-        <script src="js/translation.js"></script>
-        <script src="js/socket.min.js"></script>
     </body>
 </html>
